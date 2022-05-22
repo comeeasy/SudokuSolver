@@ -8,5 +8,4 @@
 ----------------------------------------------
 ## FlowChart
 
-<br><img src="https://github.com/comeeasy/SudokuSolver/FlowDiagram/flow_diagram.png" width="40%" height="30%" title="px(픽셀) 크기 설정" alt="RubberDuck"></img><br>
-
+<br><img src="https://github.com/comeeasy/SudokuSolver/blob/main/FlowDiagram/flow_diagram.png" width="40%" height="30%" title="px(픽셀) 크기 설정" alt="RubberDuck"></img><br>
