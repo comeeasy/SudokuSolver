@@ -2,7 +2,7 @@
 
 ## Introduce
 
-Hi🖐. This repository is built to serve `__Single Shot Sudoku Solve__`.<br>
+Hi🖐. This repository is built to serve `Single Shot Sudoku Solver`.<br>
 If you are struggling with your challenging sudoku problem,<br>
 this service might give a help. Feel free to try.
 
