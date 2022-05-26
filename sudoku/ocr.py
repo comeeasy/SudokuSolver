@@ -15,12 +15,15 @@ def extract_sudoku_image(path="images/sudoku2.jpeg"):
     img = cv2.Canny(img, threshold1=0, threshold2=40)
     img = cv2.dilate(img, kernel=np.ones((5, 5)), iterations=2)
 
+    # cv2.imshow("img", img)
+
     contours, _ = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+
     bound_rec_img = np.zeros_like(img_ori)
     selected_contours = list()
     for cnt in contours:
         area = cv2.contourArea(cnt)
-        if area < w * h / 4:
+        if area < w * h / 3:
             continue
 
         selected_contours.append(cnt)
@@ -35,22 +38,33 @@ def extract_sudoku_image(path="images/sudoku2.jpeg"):
         # Blue -> Green -> Red -> Yellow
         colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (0, 255, 255)]
 
-        # 2->0, 0->1, 1->2, 3->3
-        new_approx = list()
-        approx_idxs = [1, 2, 0, 3]
-        for i in range(4):
-            cv2.circle(bound_rec_img, bound_rec_list[i], radius=10, color=colors[i], thickness=3)
+        approx = sorted(approx, key=lambda x: x[0][0])
+        approx[:2] = sorted(approx[:2], key=lambda x: x[0][1])
+        approx[2:] = sorted(approx[2:], key=lambda x: x[0][1])
+        approx = np.array(approx)
+        # # 2->0, 0->1, 1->2, 3->3
+        # # new_approx = list()
+        # # approx_idxs = [1, 2, 0, 3]
 
-        for i, idx in enumerate(approx_idxs):
-            cv2.circle(bound_rec_img, approx[idx][0], radius=10, color=colors[i], thickness=3)
-            new_approx.append(approx[idx][0])
+        # for i in range(4):
+            # cv2.circle(bound_rec_img, bound_rec_list[i], radius=10, color=colors[i], thickness=3)
 
-        cv2.drawContours(bound_rec_img, [approx], 0, (0, 255, 0), 5)
+        # # for i, idx in enumerate(approx_idxs):
+        # #   cv2.circle(bound_rec_img, approx[idx][0], radius=10, color=colors[i], thickness=3)
+        #     new_approx.append(approx[idx][0])
+
+        # for i, app in enumerate(approx):
+        #     cv2.circle(bound_rec_img, app[0], radius=10, color=colors[i], thickness=3)
+
+        cv2.drawContours(bound_rec_img, approx, 0, (0, 255, 0), 5)
+        # cv2.imshow("contour", bound_rec_img)
 
     # Perspective Transform
-    M = cv2.getPerspectiveTransform(np.array(new_approx, dtype=np.float32), np.array(bound_rec_list, dtype=np.float32))
-    inv_M = cv2.getPerspectiveTransform(np.array(bound_rec_list, dtype=np.float32), np.array(new_approx, dtype=np.float32))
+    M = cv2.getPerspectiveTransform(np.array(approx, dtype=np.float32), np.array(bound_rec_list, dtype=np.float32))
+    inv_M = cv2.getPerspectiveTransform(np.array(bound_rec_list, dtype=np.float32), np.array(approx, dtype=np.float32))
     dst = cv2.warpPerspective(img_ori, M, (0, 0))
+
+    # cv2.imshow("dst". dst)
 
     inv_info = {
         "xywh": (x, y, w, h),
@@ -58,8 +72,10 @@ def extract_sudoku_image(path="images/sudoku2.jpeg"):
         "inverse_mat": inv_M
     }
 
-    sudoku = dst[y:y+h, x:x+w]
+    sudoku = dst[y+10:y+h-10, x+10:x+w-10]
     sudoku = cv2.resize(sudoku, (SUDOKU_GRID_WIDTH * 9, SUDOKU_GRID_WIDTH * 9))
+
+    # cv2.imshow("sudoku in function", sudoku)
 
     print(f"sudoku is extracted, shape of sudoku: {sudoku.shape}")
 

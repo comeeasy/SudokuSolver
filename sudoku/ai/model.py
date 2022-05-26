@@ -4,6 +4,7 @@ import torch.nn.functional as F
 import torchvision
 import logging
 
+
 class MNISTModel(nn.Module):
     def __init__(self):
         super().__init__()
@@ -35,6 +36,7 @@ class MNISTModel(nn.Module):
         output = self.layers(x)
         output = output.view(-1, 10)
         return output
+
 
 class EfficientNet(nn.Module):
     def __init__(self):
@@ -81,3 +83,43 @@ class EfficientNet(nn.Module):
         self.eval()
 
         logging.info(f"model is loaded path={path}, device={device}")
+
+
+
+class ConvNeXtTiny(nn.Module):
+    def __init__(self) -> None:
+        super().__init__()
+
+        self.model = torchvision.models.convnext_tiny(pretrained=True, progress=True)
+
+        self.model.features[0][0] = nn.Conv2d(1, 96, kernel_size=(4, 4), stride=(4, 4))
+        self.model.classifier[2] = nn.Linear(768, 10, bias=True)
+
+    def forward(self, x):
+        return self.model.forward(x)
+
+
+class ResNet34(nn.Module):
+    def __init__(self) -> None:
+        super().__init__()
+
+        self.model = torchvision.models.resnet34(pretrained=True)
+        self.model.conv1 = nn.Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+        self.model.fc = nn.Sequential(
+            nn.Dropout(p=0.3),
+            nn.Linear(512, 10, bias=False)
+        )
+
+    def forward(self, x):
+        return self.model.forward(x)
+
+    def load(self, path="/home/r320/Desktop/joono/sudoku/ai/weights/ResNet34-epoch24-acc0.98.pt", device="cpu"):
+        self.load_state_dict(torch.load(path, map_location=device))
+        self.to(device)
+        self.eval()
+
+        logging.info(f"model is loaded path={path}, device={device}")
+
+if __name__ == '__main__':
+    model = ResNet34()
+    
