@@ -12,7 +12,7 @@
 
 ----------------------------------------------
 ## Introduce
-Hi🖐. This repository is built to serve `Single Shot Sudoku Solve.<br>
+Hi🖐. This repository is built to serve `Single Shot Sudoku Solve`.<br>
 It means that if you are struggling with your challenging sudoku problem,<br>
 this service might give a help. Feel free to try.
 
