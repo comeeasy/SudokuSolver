@@ -2,7 +2,7 @@
 
 ## Introduce
 
-__Personal info for Korean__
+> __Personal info for Korean__
 > 상명대학교 클라우드 프로그래밍 Django Project<br>
 > 융합전자공학과 김준호 201710860
 
