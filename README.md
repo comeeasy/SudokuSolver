@@ -17,7 +17,10 @@ this service might give a help. Feel free to try.
 ----------------------------------------------
 ## Demo
 
-<div class="row>
+<p align="center">
+    <img src="https://github.com/comeeasy/SudokuSolver/blob/main/sudoku/demo/demo.png" width="40%" height="30%" title="px(픽셀) 크기 설정" alt="RubberDuck">
+    </img>
+</p>
 
             
 > __Personal info for Korean__<br><br>
