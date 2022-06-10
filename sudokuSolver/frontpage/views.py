@@ -4,6 +4,6 @@ from django.shortcuts import render
 def front_page(request):
     return render(
         request,
-        "front page",
+        "frontpage/front_page.html",
         context=None
     )
