@@ -1,6 +1,5 @@
 # sudoku.py
 
-import sys
 from copy import *
 # sys.stdin = open('sample.txt', 'r')
 

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SolveSudoku</title>
+</head>
+<body>
+    <h1>solve by type</h1>
+
+    <!DOCTYPE html>
+    <style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+
+    textarea,input {
+        border: 0px;
+        resize: none;
+        width: 15px;
+    }
+    </style>
+
+    <!--table-->
+
+    <form method="post" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>{{ n11 }}
+                <td>{{ n12 }}
+                <td>{{ n13 }}
+                <td>{{ n14 }}
+                <td>{{ n15 }}
+                <td>{{ n16 }}
+                <td>{{ n17 }}
+                <td>{{ n18 }}
+                <td>{{ n19 }}
+            </tr>
+            <tr>
+                <td>{{ n21 }}
+                <td>{{ n22 }}
+                <td>{{ n23 }}
+                <td>{{ n24 }}
+                <td>{{ n25 }}
+                <td>{{ n26 }}
+                <td>{{ n27 }}
+                <td>{{ n28 }}
+                <td>{{ n29 }}
+            </tr>
+            <tr>
+                <td>{{ n31 }}
+                <td>{{ n32 }}
+                <td>{{ n33 }}
+                <td>{{ n34 }}
+                <td>{{ n35 }}
+                <td>{{ n36 }}
+                <td>{{ n37 }}
+                <td>{{ n38 }}
+                <td>{{ n39 }}
+            </tr>
+            <tr>
+                <td>{{ n41 }}
+                <td>{{ n42 }}
+                <td>{{ n43 }}
+                <td>{{ n44 }}
+                <td>{{ n45 }}
+                <td>{{ n46 }}
+                <td>{{ n47 }}
+                <td>{{ n48 }}
+                <td>{{ n49 }}
+            </tr>
+            <tr>
+                <td>{{ n51 }}
+                <td>{{ n52 }}
+                <td>{{ n53 }}
+                <td>{{ n54 }}
+                <td>{{ n55 }}
+                <td>{{ n56 }}
+                <td>{{ n57 }}
+                <td>{{ n58 }}
+                <td>{{ n59 }}
+            </tr>
+            <tr>
+                <td>{{ n61 }}
+                <td>{{ n62 }}
+                <td>{{ n63 }}
+                <td>{{ n64 }}
+                <td>{{ n65 }}
+                <td>{{ n66 }}
+                <td>{{ n67 }}
+                <td>{{ n68 }}
+                <td>{{ n69 }}
+            </tr>
+            <tr>
+                <td>{{ n71 }}
+                <td>{{ n72 }}
+                <td>{{ n73 }}
+                <td>{{ n74 }}
+                <td>{{ n75 }}
+                <td>{{ n76 }}
+                <td>{{ n77 }}
+                <td>{{ n78 }}
+                <td>{{ n79 }}
+            </tr>
+            <tr>
+                <td>{{ n81 }}
+                <td>{{ n82 }}
+                <td>{{ n83 }}
+                <td>{{ n84 }}
+                <td>{{ n85 }}
+                <td>{{ n86 }}
+                <td>{{ n87 }}
+                <td>{{ n88 }}
+                <td>{{ n89 }}
+            </tr>
+            <tr>
+                <td>{{ n91 }}
+                <td>{{ n92 }}
+                <td>{{ n93 }}
+                <td>{{ n94 }}
+                <td>{{ n95 }}
+                <td>{{ n96 }}
+                <td>{{ n97 }}
+                <td>{{ n98 }}
+                <td>{{ n99 }}
+            </tr>
+        </table>
+        <input type="submit" style="width: 10%;">
+    </form>
+
+    <div>
+        <a href="http://127.0.0.1:8000"><input type="button" value="Home" style="width: 10%;"></a>
+    </div>
+
+</body>
+</html>
