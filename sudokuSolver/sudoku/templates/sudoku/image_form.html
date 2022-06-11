@@ -8,11 +8,15 @@
     <h1>solve by picture</h1>
 
     <div>
-        <img src="{{ img.sudoku_image.url }}" alt="maong" style="width: 320px; height: 480px;">&nbsp;&nbsp;
-        {% if img.sudoku_image_result %}
-            <img src="{{ img.sudoku_image_result.url }}" alt="miaong" style="width: 320px; height: 480px;">
-        {% endif %}
+        <form method="post" enctype="multipart/form-data" action=""> {% csrf_token %}
+            <table>
+                {{ form }}
+            </table>
+            <input type="submit" value="upload">
+        </form>
+
     </div>
+
 
     <div>
         <a href="http://127.0.0.1:8000"><input type="button" value="Home"></a>
