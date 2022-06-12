@@ -1,27 +1,19 @@
-import base64
-import os
-from base64 import b64encode
+from io import BytesIO
 
+import PIL
 import cv2
-import numpy as np
+from django.core.files.base import ContentFile
 from django.shortcuts import render
 from django.urls import reverse
-from django.core.files import File
+from django.views.generic import CreateView, ListView
 
 from .libsudoku import sudoku
-from .libsudoku.ai.model import ResNet34
 from .libsudoku.ai.detector import Detector
+from .libsudoku.ai.model import ResNet34
 from .libsudoku.drawer import Drawer
 from .libsudoku.ocr import extract_sudoku_image
 from .libsudoku.sudoku import SudokuSolver, loc, play_sdk
-from django.conf import settings
-
 from .models import Image
-from django.views.generic import CreateView
-from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.core.files.base import ContentFile
-import PIL
-from io import BytesIO
 
 
 # Create your views here.
@@ -93,26 +85,7 @@ def solveByPic(request, pk):
     pil_io = BytesIO()
     pil.save(fp=pil_io, format='JPEG')
     new_pil = ContentFile(pil_io.getvalue())
-    print(type(new_pil))
-
-    result_field = img.sudoku_image_result
-    # result_field.save( f"result_{pk}.jpg", new_pil, save=True)
     img.sudoku_image_result.save(name=f"result_{pk}.jpeg", content=new_pil)
-
-
-    # img_name = f"result_{pk}.jpeg",
-    # img.sudoku_image_result.save(
-    #     img_name,
-    #     InMemoryUploadedFile(
-    #         new_pil,
-    #         None,
-    #         img_name,
-    #         'image/jpeg',
-    #         new_pil.tell,
-    #         None
-    #     )
-    # )
-    # img.save()
 
     context = {
         "img": img,
@@ -134,9 +107,9 @@ class solveByPicCBV(CreateView):
     def get_success_url(self):
         return reverse("img_uploaded", kwargs={'pk': self.object.pk})
 
+class PostListView(ListView):
+    model = Image
 
-def posts(request):
-    return render(
-        request,
-        "sudoku/posts.html"
-    )
+
+
+

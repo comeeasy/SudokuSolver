@@ -10,7 +10,7 @@ class Drawer:
         self.number_imgs = [
             cv2.resize(
                 cv2.imread(
-                    f"/Users/joono/Desktop/joono/SudokuSolver/sudokuSolver/sudoku/libsudoku/images/numbers2/{number_name}.png",
+                    f"/Users/joono/Desktop/joono/SudokuSolver/sudokuSolver/sudoku/libsudoku/images/numbers/{number_name}.png",
                     cv2.IMREAD_UNCHANGED),
                 (SUDOKU_GRID, SUDOKU_GRID))
             for number_name in self.number_names]

@@ -17,9 +17,6 @@ class Detector:
     def get_sudoku_mat(self, sudoku_img):
         sudoku_img_gray = cv2.cvtColor(sudoku_img, cv2.COLOR_BGR2GRAY)
 
-        # cv2.imshow("sudoku", sudoku_img_gray)
-        # cv2.waitKey(0)
-
         sudoku_numbers = list()
         for y in range(9):
             sudoku_row = list()
@@ -30,9 +27,6 @@ class Detector:
                 number = np.reshape(number_ori, (SUDOKU_GRID, SUDOKU_GRID, 1))
                 number_ori = number.copy()
                 number = self.transform(number).unsqueeze_(0)
-
-                # cv2.imshow("number", number_ori)
-                # cv2.waitKey(10)
 
                 # print(f"number shape: {number.shape}")
                 with torch.no_grad():
@@ -51,7 +45,6 @@ class Detector:
                     num = int(input("What is this number?"))
                     sudoku_row.append(num)
                     print(f"{0} num: {num}, conf: {predict[0][num]}")
-
 
             sudoku_numbers.append(sudoku_row)
         

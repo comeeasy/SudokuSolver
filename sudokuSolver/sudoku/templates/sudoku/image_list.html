@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SolveSudoku</title>
+</head>
+<body>
+    <h1>posts of results</h1>
+
+    {% for img in image_list %}
+    <div>
+        <img src="{{ img.sudoku_image.url }}" alt="maong" style="width: 320px; height: 480px;">&nbsp;&nbsp;
+        {% if img.sudoku_image_result %}
+            <img src="{{ img.sudoku_image_result.url }}" alt="miaong" style="width: 320px; height: 480px;">
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <div>
+        <a href="http://127.0.0.1:8000"><input type="button" value="Home"></a>
+    </div>
+
+</body>
+</html>
