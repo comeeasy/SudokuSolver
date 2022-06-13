@@ -3,7 +3,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torchvision
 import logging
+import os
 
+from django.conf import settings
 
 class MNISTModel(nn.Module):
     def __init__(self):
@@ -113,7 +115,7 @@ class ResNet34(nn.Module):
     def forward(self, x):
         return self.model.forward(x)
 
-    def load(self, path="/home/r320/Desktop/joono/sudoku/ai/weights/ResNet34-epoch24-acc0.98.pt", device="cpu"):
+    def load(self, path=os.path.join('..', 'static', 'weights', 'ResNet34-epoch58-acc99.65.pt'), device="cpu"):
         self.load_state_dict(torch.load(path, map_location=device))
         self.to(device)
         self.eval()

@@ -1,35 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>SolveSudoku</title>
-</head>
-<body>
-    <h1>solve by type</h1>
+{% extends 'sudoku/base.html' %}
 
-    <!DOCTYPE html>
+{% block contents %}
+
     <style>
-    table, th, td {
-        border: 1px solid black;
-        border-collapse: collapse;
-    }
-
-    th, td {
-        padding: 10px;
-    }
-
-    textarea,input {
-        border: 0px;
-        resize: none;
-        width: 15px;
-    }
+        input {
+            border: 5px;
+            resize: none;
+            width: 75px;
+            height: 75px;
+            font-size: 25px;
+            text-align: center;
+            outline-style: solid;
+        }
     </style>
 
-    <!--table-->
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+      <div class="col-md-5 p-lg-5 mx-auto my-5">
+        <h1 class="display-4 font-weight-normal">숫자를 입력하세요!</h1>
+        <p class="lead font-weight-normal">정확히 입력해야 답을 내요.</p>
 
-    <form method="post" enctype="multipart/form-data" action="">
+      </div>
+      <div>
+        <form method="post" enctype="multipart/form-data" action="" >
+
         {% csrf_token %}
-        <table>
+        <table style="outline-style: solid; margin: auto; text-align: center; margin-bottom: 30px;">
             <tr>
                 <td><input name="n11">
                 <td><input name="n12">
@@ -133,12 +128,11 @@
 
 
         </table>
-        <input type="submit" style="width: 10%;">
+        <input class="btn btn-primary" type="submit" style="width: 10%;">
     </form>
-
-    <div>
-        <a href="http://127.0.0.1:8000"><input type="button" value="Home" style="width: 10%;"></a>
+      </div>
+      <div class="product-device shadow-sm d-none d-md-block"></div>
+      <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
     </div>
 
-</body>
-</html>
+{% endblock %}

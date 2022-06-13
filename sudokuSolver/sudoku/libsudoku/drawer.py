@@ -1,8 +1,10 @@
+import os
+
 import cv2
 import numpy as np
 
 from .config import SUDOKU_GRID, SUDOKU_GRID_MARGIN, SUDOKU_GRID_WIDTH
-
+from django.conf import settings
 
 class Drawer:
     def __init__(self) -> None:
@@ -10,7 +12,7 @@ class Drawer:
         self.number_imgs = [
             cv2.resize(
                 cv2.imread(
-                    f"/Users/joono/Desktop/joono/SudokuSolver/sudokuSolver/sudoku/libsudoku/images/numbers/{number_name}.png",
+                    os.path.join(settings.STATIC_ROOT, 'images', 'numbers', f"{number_name}.png"),
                     cv2.IMREAD_UNCHANGED),
                 (SUDOKU_GRID, SUDOKU_GRID))
             for number_name in self.number_names]

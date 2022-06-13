@@ -1,3 +1,4 @@
+import os
 from io import BytesIO
 
 import PIL
@@ -6,6 +7,7 @@ from django.core.files.base import ContentFile
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import CreateView, ListView
+from django.conf import settings
 
 from .libsudoku import sudoku
 from .libsudoku.ai.detector import Detector
@@ -53,14 +55,17 @@ def solveByType(request):
 
 
 model = ResNet34()
-model.load(path="/Users/joono/Desktop/joono/SudokuSolver/sudokuSolver/sudoku/libsudoku/ai/weights/ResNet34-epoch58-acc99.65.pt", device='cpu')
+model.load(path=os.path.join(settings.STATIC_ROOT, 'weights', 'ResNet34-epoch58-acc99.65.pt'), device='cpu')
 detector = Detector(model)
 drawer = Drawer()
 def solveByPic(request, pk):
+    print(request)
+
     img = Image.objects.get(pk=pk)
 
+    print(request.POST)
+
     pil = PIL.Image.open(img.sudoku_image)
-    # pil.show()
 
     sudoku_img, inv_info = extract_sudoku_image(path=img.sudoku_image.path)
     sudoku_mat = detector.get_sudoku_mat(sudoku_img)
@@ -97,8 +102,6 @@ def solveByPic(request, pk):
         context
     )
 
-
-
 class solveByPicCBV(CreateView):
     model = Image
 
@@ -106,6 +109,12 @@ class solveByPicCBV(CreateView):
 
     def get_success_url(self):
         return reverse("img_uploaded", kwargs={'pk': self.object.pk})
+
+    # def post(self, request, *args, **kwargs):
+    #     print(request.POST)
+    #     print(args, kwargs)
+    #     return HttpResponse("Hello")
+
 
 class PostListView(ListView):
     model = Image

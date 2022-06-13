@@ -1,25 +1,98 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Front page</title>
-</head>
-<body>
-    <h1>front page</h1>
-    <h2>Welcome to SudokuSolver</h2>
+{% load static %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>Single Shot Sudoku Solver</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/product/">
+
+    <!-- Bootstrap core CSS -->
+<link href="{% static 'front_page/bootstrap-4.6.1-dist/css/bootstrap.min.css' %}" rel="stylesheet" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
 
-    <div>
-        <a href="solve/bytype/"><input type="button" value="solve by type"></a>
-        <a href="solve/bypic/"><input type="button" value="solve by picture"></a>
-        <a href="solve/posts/"><input type="button" value="posts"></a>
+
+    <!-- Favicons -->
+<link rel="apple-touch-icon" href="/docs/4.6/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+<link rel="icon" href="/docs/4.6/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/docs/4.6/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+<link rel="manifest" href="/docs/4.6/assets/img/favicons/manifest.json">
+<link rel="mask-icon" href="/docs/4.6/assets/img/favicons/safari-pinned-tab.svg" color="#563d7c">
+<link rel="icon" href="/docs/4.6/assets/img/favicons/favicon.ico">
+<meta name="msapplication-config" content="/docs/4.6/assets/img/favicons/browserconfig.xml">
+<meta name="theme-color" content="#563d7c">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="product.css" rel="stylesheet">
+  </head>
+  <body>
+
+<nav class="site-header sticky-top py-1">
+  <div class="container d-flex flex-column flex-md-row justify-content-between">
+    <a class="py-2" href="#" aria-label="Product">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="d-block mx-auto" role="img" viewBox="0 0 24 24" focusable="false"><title>Product</title><circle cx="12" cy="12" r="10"/><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94"/></svg>
+    </a>
+    <a class="py-2 d-none d-md-inline-block" href=".">Home</a>
+    <a class="py-2 d-none d-md-inline-block" href="/solve/bytype">Type to solve</a>
+    <a class="py-2 d-none d-md-inline-block" href="/solve/bypic">Picture to solve</a>
+    <a class="py-2 d-none d-md-inline-block" href="/solve/posts">Posts</a>
+  </div>
+</nav>
+
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+  <div class="col-md-5 p-lg-5 mx-auto my-5">
+    <h1 class="display-4 font-weight-normal">스도쿠?<br> ez..<br> Just try!<br></h1>
+    <p class="lead font-weight-normal">공대생이 스도쿠도 못푸냐는 말에 만들어 봤습니다.</p>
+    <p class="lead font-weight-normal" style="color: orange">Single Shot Sudoku Solver</p>a.k.a<br>
+    <h2 style="color: orange">SSSS</h2>
+    <a class="btn btn-outline-secondary" href="/solve/bytype">Type to Solve</a>
+    <a class="btn btn-outline-primary" href="/solve/bypic">Shot to Solve</a>
+    <a class="btn btn-outline-secondary" href="/solve/posts">Posts</a>
+  </div>
+  <div class="product-device shadow-sm d-none d-md-block"></div>
+  <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+</div>
+
+<footer class="container py-5">
+  <div class="row" >
+    <div class="col-6 col-md">
+      <h5>About</h5>
+      <ul class="list-unstyled text-small">
+        <li><p class="text-muted" href="#">Phone: 010-9243-9761</p></li>
+        <li><p class="text-muted" href="#">Emain: zz1236zz@gmail.com</p></li>
+        <li><a class="text-muted" href="https://github.com/comeeasy/SudokuSolver">Github</a></li>
+      </ul>
     </div>
-    <div>
-        <a href=""><input type="button" value="Home"></a>
-    </div>
+  </div>
+</footer>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="/docs/4.6/assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="/docs/4.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
 
 
-</body>
+  </body>
 </html>

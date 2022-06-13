@@ -1,25 +1,96 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>SolveSudoku</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <h1>solve by picture</h1>-->
+
+<!--    <div>-->
+<!--        <form method="post" enctype="multipart/form-data" action="" > {% csrf_token %}-->
+
+<!--            <input type="file" id="img" name="img" accept="image/png, image/jpeg">-->
+<!--            <input type="submit" value="upload">-->
+<!--        </form>-->
+
+<!--    </div>-->
+
+
+<!--    <div>-->
+<!--        <a href="http://127.0.0.1:8000"><input type="button" value="Home"></a>-->
+<!--    </div>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+<!--<div class="container py-5">-->
+
+<!--    &lt;!&ndash; For demo purpose &ndash;&gt;-->
+<!--    <header class="text-white text-center">-->
+<!--        <h1 class="display-4">Bootstrap image upload</h1>-->
+<!--        <p class="lead mb-0">Build a simple image upload button using Bootstrap 4.</p>-->
+<!--        <p class="mb-5 font-weight-light">Snippet by-->
+<!--            <a href="https://bootstrapious.com" class="text-white">-->
+<!--                <u>Bootstrapious</u>-->
+<!--            </a>-->
+<!--        </p>-->
+<!--        <img src="https://bootstrapious.com/i/snippets/sn-img-upload/image.svg" alt="" width="150" class="mb-4">-->
+<!--    </header>-->
+
+
+<!--    <div class="row py-4">-->
+<!--        <div class="col-lg-6 mx-auto">-->
+
+<!--            &lt;!&ndash; Upload image input&ndash;&gt;-->
+<!--            <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">-->
+<!--                <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">-->
+<!--                <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>-->
+<!--                <div class="input-group-append">-->
+<!--                    <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Uploaded image area&ndash;&gt;-->
+<!--            <p class="font-italic text-white text-center">The image uploaded will be rendered inside the box below.</p>-->
+<!--            <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>-->
+
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>SolveSudoku</title>
-</head>
-<body>
-    <h1>solve by picture</h1>
+    {% load static %}
 
-    <div>
-        <form method="post" enctype="multipart/form-data" action="" > {% csrf_token %}
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bootstrap 5 image Upload with Preview</title>
+        <link href="sudoku/bootstrap-4.6.1-dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    </head>
 
-            <input type="file" id="img" name="img" accept="image/png, image/jpeg">
-            <input type="submit" value="upload">
-        </form>
+    <body>
+        <div class="container col-md-6">
+            <div class="mb-5">
+                <label for="Image" class="form-label">Bootstrap 5 image Upload with Preview</label>
+                <input class="form-control" type="file" id="formFile" onchange="preview()">
+                <button onclick="clearImage()" class="btn btn-primary mt-3">Click me</button>
+            </div>
+            <img id="frame" src="" class="img-fluid" />
+        </div>
 
-    </div>
-
-
-    <div>
-        <a href="http://127.0.0.1:8000"><input type="button" value="Home"></a>
-    </div>
-
-</body>
+        <script>
+            function preview() {
+                frame.src = URL.createObjectURL(event.target.files[0]);
+            }
+            function clearImage() {
+                document.getElementById('formFile').value = null;
+                frame.src = "";
+            }
+        </script>
+    </body>
 </html>

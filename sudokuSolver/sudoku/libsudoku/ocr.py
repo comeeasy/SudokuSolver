@@ -42,22 +42,7 @@ def extract_sudoku_image(path="images/sudoku2.jpeg"):
         approx[:2] = sorted(approx[:2], key=lambda x: x[0][1])
         approx[2:] = sorted(approx[2:], key=lambda x: x[0][1])
         approx = np.array(approx)
-        # # 2->0, 0->1, 1->2, 3->3
-        # # new_approx = list()
-        # # approx_idxs = [1, 2, 0, 3]
-
-        # for i in range(4):
-        # cv2.circle(bound_rec_img, bound_rec_list[i], radius=10, color=colors[i], thickness=3)
-
-        # # for i, idx in enumerate(approx_idxs):
-        # #   cv2.circle(bound_rec_img, approx[idx][0], radius=10, color=colors[i], thickness=3)
-        #     new_approx.append(approx[idx][0])
-
-        # for i, app in enumerate(approx):
-        #     cv2.circle(bound_rec_img, app[0], radius=10, color=colors[i], thickness=3)
-
         cv2.drawContours(bound_rec_img, approx, 0, (0, 255, 0), 5)
-        # cv2.imshow("contour", bound_rec_img)
 
     # Perspective Transform
     M = cv2.getPerspectiveTransform(np.array(approx, dtype=np.float32), np.array(bound_rec_list, dtype=np.float32))

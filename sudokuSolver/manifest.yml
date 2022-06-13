@@ -1,7 +1,6 @@
 applications:
 - name: SudokuSolver
   buildpack: python_buildpack
-  memory: 1G
-  disk: 1G
+  memory: 512M
   instances: 1
   command: waitress-serve --port=8080 sudokuSolver.wsgi:application
