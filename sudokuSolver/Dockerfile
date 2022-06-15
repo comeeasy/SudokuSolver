@@ -1,4 +1,4 @@
-FROM python:3.7-alpine
+FROM python:3.7
 
 WORKDIR /usr/src/app
 
@@ -6,7 +6,7 @@ COPY . .
 
 RUN pip install --upgrade pip
 RUN pip install django
-RUN pip install image
+RUN pip install pillow
 RUN pip install django-crispy-forms
 RUN pip install django-markdownx
 RUN pip install django opencv-python
