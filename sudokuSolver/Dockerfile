@@ -5,6 +5,7 @@ WORKDIR /usr/src/app
 COPY . .
 
 RUN python3 -m pip install django
+RUN python3 -m pip install pillow
 RUN python3 -m pip install django-crispy-forms
 RUN python3 -m pip install django-markdownx
 RUN python3 -m pip install django opencv-python
