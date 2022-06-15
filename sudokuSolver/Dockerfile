@@ -6,7 +6,7 @@ COPY . .
 
 RUN pip3 install --upgrade pip
 RUN pip3 install django
-RUN pip3 install pillow
+RUN sudo -H pip3 install pillow
 RUN pip3 install django-crispy-forms
 RUN python3 -m pip install django-markdownx
 RUN python3 -m pip install django opencv-python
