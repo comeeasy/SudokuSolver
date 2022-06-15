@@ -9,7 +9,6 @@ RUN python3 -m pip install django-crispy-forms
 RUN python3 -m pip install django-markdownx
 RUN python3 -m pip install django opencv-python
 RUN python3 -m pip install django numpy
-RUN python3 -m pip install pillow
 RUN python3 -m pip install torch==1.8.1
 RUN python3 -m pip install torchvision==0.9.1
 RUN python3 -m pip install whitenoise
