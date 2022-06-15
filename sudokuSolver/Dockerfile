@@ -5,6 +5,7 @@ WORKDIR /usr/src/app
 COPY . .
 
 RUN pip install --upgrade pip
+RUN apt install libjpeg8-dev zlib1g-dev
 RUN pip install django
 RUN pip install image
 RUN pip install django-crispy-forms
