@@ -6,4 +6,4 @@ COPY . .
 
 RUN pip install -r requirements.txt
 
-ENDPOINT ["waitress-serve", "--port=8080", "sudokusolver.wsgi:application"]
+ENTRYPOINT ["waitress-serve", "--port=8080", "sudokusolver.wsgi:application"]
