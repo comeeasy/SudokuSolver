@@ -5,14 +5,15 @@ WORKDIR /usr/src/app
 COPY . .
 
 RUN pip install --upgrade pip
+RUN pip install torch
+RUN pip install torchvision
 RUN pip install django
 RUN pip install pillow
 RUN pip install django-crispy-forms
 RUN pip install django-markdownx
 RUN pip install django opencv-python
 RUN pip install django numpy
-RUN pip install torch
-RUN pip install torchvision
+
 RUN pip install whitenoise
 RUN pip install waitress
 
