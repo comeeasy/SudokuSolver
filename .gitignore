@@ -129,9 +129,7 @@ dmypy.json
 .pyre/
 
 
-weights/
 data/
-images/
 logs/
 .DS_Store/
 .DS_Store
