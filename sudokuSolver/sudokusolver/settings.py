@@ -58,7 +58,7 @@ ROOT_URLCONF = 'sudokusolver.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['/Users/baejongchan/Documents/GitHub/SudokuSolver/sudokuSolver/frontpage/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,6 +70,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'sudokusolver.wsgi.application'
 

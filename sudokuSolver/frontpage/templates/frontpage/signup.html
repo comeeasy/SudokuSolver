@@ -1,0 +1,16 @@
+{% extends 'sudoku/base.html' %}  <!-- base.html 상속 -->
+
+{% block contents %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h2 class="text-center mt-4">회원가입</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}  <!-- 폼 필드 동적 렌더링 -->
+                    <button type="submit" class="btn btn-primary">가입하기</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
