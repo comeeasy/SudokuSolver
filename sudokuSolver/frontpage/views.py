@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
@@ -16,6 +16,12 @@ from django.contrib.auth.models import User
 
 from django import forms
 from django.core.validators import EmailValidator
+from django.contrib.auth.views import LoginView
+
+
+class CustomLoginView(LoginView):
+    template_name = 'frontpage/login.html'
+
 
 email_validator = EmailValidator(message="유효한 이메일 주소를 입력해주세요.")
 
@@ -32,6 +38,32 @@ def front_page(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': '사용자 이름'}))
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'placeholder': '이메일'}))
+    password = forms.CharField(strip=False, widget=forms.PasswordInput(attrs={'placeholder': '비밀번호'}))
+
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')  # 이메일 처리 로직이 필요할 수 있습니다
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)  # 여기서 이메일을 어떻게 처리할지는 커스텀 로직에 달려 있습니다
+            if user is not None:
+                login(request, user)
+                return redirect('home')  # 성공적으로 로그인한 후의 리다이렉트 주소
+            else:
+                # 인증 실패 시
+                return render(request, 'login.html', {'form': form, 'error': '로그인 정보가 잘못되었습니다.'})
+    else:
+        form = LoginForm()
+    return render(request, 'frontpage/login.html', {'form': form})
+
 
 class EmailAuthBackend(ModelBackend):
     def authenticate(self, request, email=None, password=None, **kwargs):
@@ -59,6 +91,7 @@ class EmailLoginForm(AuthenticationForm):
 
         return self.cleaned_data
 
+
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
 
@@ -73,8 +106,9 @@ class CustomUserCreationForm(UserCreationForm):
             user.save()
         return user
 
+
 class SignUp(CreateView):
-    form_class = CustomUserCreationForm  # 수정된 부분: 커스텀 폼 사용
+    form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'frontpage/signup.html'
 
@@ -91,28 +125,20 @@ class SignUp(CreateView):
         return render(request, self.template_name, {'form': form})
 
 
-
-class CustomLoginView(LoginView):
-    form_class = EmailLoginForm
-    template_name = 'frontpage/login.html'
-    success_url = reverse_lazy('home')
-
-    def get(self, request, *args, **kwargs):
-        form = self.form_class()
-        return render(request, self.template_name, {'form': form})
-
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request, data=request.POST)
+def custom_login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
         if form.is_valid():
-            # 이미 authenticate가 되었으므로 여기서 user를 가져올 수 있음
-            user = form.get_user()
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, email=email, password=password)
             if user is not None:
                 login(request, user)
-                return redirect(self.success_url)
+                return redirect('home')  # 'home'은 로그인 후 이동할 URL입니다.
             else:
-                # 인증 실패시
-                return JsonResponse({'error': '정보가 틀렸습니다.'}, status=400)
-        else:
-            # 폼 자체가 유효하지 않은 경우
-            return JsonResponse({'error': '정보가 틀렸습니다.'}, status=400)
-
+                # 인증 실패 시, 에러 메시지 처리
+                return render(request, 'frontpage/login.html', {'form': form, 'error': '로그인 정보가 잘못되었습니다.'})
+    else:
+        form = LoginForm()
+    return render(request, 'frontpage/login.html', {'form': form})

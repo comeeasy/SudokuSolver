@@ -10,7 +10,7 @@
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="id_username">이름</label>
-                    <input type="text" class="form-control" id="id_username" name="username" placeholder="아이디를 입력해주세요" required {% if form.username.value %}value="{{ form.username.value }}"{% endif %}>
+                    <input type="text" class="form-control" id="id_username" name="username" placeholder="닉네임을 입력해주세요" required {% if form.username.value %}value="{{ form.username.value }}"{% endif %}>
                     {% if form.username.errors %}
                     <p class="text-danger">{{ form.username.errors.0 }}</p>
                     {% endif %}
