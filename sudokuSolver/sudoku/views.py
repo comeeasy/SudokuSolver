@@ -96,6 +96,7 @@ def solveByPic(request, pk):
     pil_io = BytesIO()
     pil.save(fp=pil_io, format='JPEG')
     new_pil = ContentFile(pil_io.getvalue())
+    img.user = request.user
     img.sudoku_image_result.save(name=f"result_{pk}.jpeg", content=new_pil)
 
     context = {
@@ -113,6 +114,10 @@ class solveByPicCBV(CreateView):
 
     fields = ['sudoku_image']
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
     def get_success_url(self):
         return reverse("img_uploaded", kwargs={'pk': self.object.pk})
 
@@ -122,8 +127,21 @@ class solveByPicCBV(CreateView):
     #     return HttpResponse("Hello")
 
 
-class PostListView(ListView):
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
+
+class PostListView(LoginRequiredMixin, ListView):
     model = Image
+    login_url = 'frontpage/login/'  # 로그인 페이지 URL 설정
+    redirect_field_name = 'redirect_to'
+
+    def get_queryset(self):
+        return Image.objects.filter(user=self.request.user)
+
+    def handle_no_permission(self):
+        # 로그인하지 않은 경우의 처리
+        return render(self.request, 'frontpage/login.html', {'form': AuthenticationForm})
+
 
 
 

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'frontpage',
     'sudoku',
+    '_media',
 ]
 
 MIDDLEWARE = [

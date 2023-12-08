@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="877ab649-ad04-4f74-bb3e-a6e6fcfab0bf" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sudokuSolver/frontpage/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/sudokuSolver/frontpage/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sudokuSolver/sudoku/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/sudokuSolver/sudoku/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sudokuSolver/sudoku/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/sudokuSolver/sudoku/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sudokuSolver/sudokusolver/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/sudokuSolver/sudokusolver/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
