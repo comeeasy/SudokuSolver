@@ -1,13 +1,19 @@
 import os
 from io import BytesIO
 
-import PIL
+import PIL.Image
 import cv2
 from django.core.files.base import ContentFile
-from django.shortcuts import render
-from django.urls import reverse
+from django.shortcuts import render, redirect
+from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, ListView
 from django.conf import settings
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 
 from .libsudoku import sudoku
 from .libsudoku.ai.detector import Detector
@@ -118,6 +124,7 @@ class solveByPicCBV(CreateView):
 
 class PostListView(ListView):
     model = Image
+
 
 
 
