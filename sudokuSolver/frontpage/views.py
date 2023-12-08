@@ -51,12 +51,12 @@ def login_view(request):
         form = LoginForm(data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
-            email = form.cleaned_data.get('email')  # 이메일 처리 로직이 필요할 수 있습니다
+            email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)  # 여기서 이메일을 어떻게 처리할지는 커스텀 로직에 달려 있습니다
+            user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')  # 성공적으로 로그인한 후의 리다이렉트 주소
+                return redirect('home')
             else:
                 # 인증 실패 시
                 return render(request, 'login.html', {'form': form, 'error': '로그인 정보가 잘못되었습니다.'})
@@ -119,8 +119,10 @@ class SignUp(CreateView):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
+            user = form.save(commit=False)
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            user.save()
+            login(request, user, backend=user.backend)
             return redirect('home')
         return render(request, self.template_name, {'form': form})
 
