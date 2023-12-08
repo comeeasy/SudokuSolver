@@ -61,7 +61,15 @@
       <a class="py-2 d-none d-md-inline-block" href="/solve/bytype">Type to solve</a>
       <a class="py-2 d-none d-md-inline-block" href="/solve/bypic">Picture to solve</a>
       <a class="py-2 d-none d-md-inline-block" href="/solve/posts">Posts</a>
-      <a class="py-2 d-none d-md-inline-block" href="/signup">Sign Up</a>
+      <div class="d-flex align-items-center">
+      {% if user.is_authenticated %}
+          <span>환영합니다, {{ user.username }}!</span>
+          <a class="py-2 d-none d-md-inline-block" href="{% url 'logout' %}">Logout</a>
+      {% else %}
+          <a class="py-2 d-none d-md-inline-block mr-3" href="/signup">Sign Up</a>
+          <a class="py-2 d-none d-md-inline-block" href="/login">Login</a>
+      {% endif %}
+      </div>
     </div>
   </nav>
 
