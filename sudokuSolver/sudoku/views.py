@@ -139,7 +139,6 @@ class PostListView(LoginRequiredMixin, ListView):
         return Image.objects.filter(user=self.request.user)
 
     def handle_no_permission(self):
-        # 로그인하지 않은 경우의 처리
         return render(self.request, 'frontpage/login.html', {'form': AuthenticationForm})
 
 
