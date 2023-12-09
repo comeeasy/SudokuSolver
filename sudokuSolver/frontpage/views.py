@@ -13,6 +13,8 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.models import User
+import random
+from django.core.mail import send_mail
 
 from django import forms
 from django.core.validators import EmailValidator
@@ -42,7 +44,6 @@ def logout_view(request):
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(required=True, widget=forms.TextInput(attrs={'placeholder': '사용자 이름'}))
-    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'placeholder': '이메일'}))
     password = forms.CharField(strip=False, widget=forms.PasswordInput(attrs={'placeholder': '비밀번호'}))
 
 
@@ -51,7 +52,6 @@ def login_view(request):
         form = LoginForm(data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
-            email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None:
@@ -59,7 +59,7 @@ def login_view(request):
                 return redirect('home')
             else:
                 # 인증 실패 시
-                return render(request, 'login.html', {'form': form, 'error': '로그인 정보가 잘못되었습니다.'})
+                return render(request, 'frontpage/login.html', {'form': form, 'error': '로그인 정보가 잘못되었습니다.'})
     else:
         form = LoginForm()
     return render(request, 'frontpage/login.html', {'form': form})
@@ -144,3 +144,37 @@ def custom_login_view(request):
     else:
         form = LoginForm()
     return render(request, 'frontpage/login.html', {'form': form})
+
+
+# views.py 파일에 추가
+def verify_email(request):
+    if request.method == "POST" and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        user_code = request.POST.get('code')
+        session_code = request.session.get('verification_code')
+
+        if user_code == session_code:
+            # 코드 일치
+            return JsonResponse({"success": True})
+        else:
+            # 코드 불일치
+            return JsonResponse({"success": False, "error": "잘못된 코드입니다."})
+
+    return JsonResponse({"success": False, "error": "유효하지 않은 요청입니다."})
+
+
+def send_verification_email(request):
+    if request.method == "POST" and request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        email = request.POST.get('email')
+        code = random.randint(1000, 9999)  # 인증 코드 생성
+        request.session['verification_code'] = str(code)  # 세션에 인증 코드 저장
+
+        # 이메일 전송
+        send_mail(
+            '회원가입 인증 코드',
+            f'인증 코드는 {code}입니다.',
+            'mjusw7@gmail.com',  # 보내는 이메일 (settings.py에 설정된 이메일)
+            [email],
+            fail_silently=False,
+        )
+        return JsonResponse({"success": True})
+    return JsonResponse({"success": False, "error": "유효하지 않은 요청입니다."})

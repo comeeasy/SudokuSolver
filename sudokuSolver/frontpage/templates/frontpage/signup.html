@@ -6,40 +6,107 @@
     <div class="row">
         <div class="col-md-6 offset-md-3 mt-5">
             <h2 class="text-center">회원가입</h2>
-            <form method="post" class="mt-4">
+            <!-- 회원가입 폼 시작 -->
+            <form action="{% url 'signup' %}" method="post" class="mt-4">
                 {% csrf_token %}
+                <!-- 사용자 이름 입력 -->
                 <div class="form-group">
                     <label for="id_username">이름</label>
-                    <input type="text" class="form-control" id="id_username" name="username" placeholder="닉네임을 입력해주세요" required {% if form.username.value %}value="{{ form.username.value }}"{% endif %}>
-                    {% if form.username.errors %}
-                    <p class="text-danger">{{ form.username.errors.0 }}</p>
-                    {% endif %}
+                    <input type="text" class="form-control" id="id_username" name="username" placeholder="닉네임을 입력해주세요" required>
                 </div>
+                <!-- 이메일 입력 -->
                 <div class="form-group">
                     <label for="id_email">이메일</label>
-                    <input type="email" class="form-control" id="id_email" name="email" placeholder="Email을 입력해주세요" required {% if form.email.value %}value="{{ form.email.value }}"{% endif %}>
-                    {% if form.email.errors %}
-                    <p class="text-danger">{{ form.email.errors.0 }}</p>
-                    {% endif %}
+                    <input type="email" class="form-control" id="id_email" name="email" placeholder="Email을 입력해주세요" required>
                 </div>
+                <!-- 이메일 전송 버튼 -->
+                <div class="form-group">
+                    <button id="send_email_button" type="button" class="btn btn-secondary btn-block">이메일 전송</button>
+                </div>
+                <!-- 이메일 인증 코드 입력 및 확인 버튼 -->
+                <div class="form-group">
+                    <label for="id_verification_code">인증 코드</label>
+                    <input type="text" class="form-control" id="id_verification_code" placeholder="이메일로 받은 인증 코드를 입력해주세요">
+                    <button id="verify_button" type="button" class="btn btn-primary btn-block">인증하기</button>
+                    <p id="verification_result" class="text-danger"></p>
+                </div>
+                <!-- 비밀번호 입력 -->
                 <div class="form-group">
                     <label for="id_password1">비밀번호</label>
                     <input type="password" class="form-control" id="id_password1" name="password1" placeholder="비밀번호를 입력해주세요" required>
-                    {% if form.password1.errors %}
-                    <p class="text-danger">{{ form.password1.errors.0 }}</p>
-                    {% endif %}
                 </div>
                 <div class="form-group">
                     <label for="id_password2">비밀번호 확인</label>
                     <input type="password" class="form-control" id="id_password2" name="password2" placeholder="비밀번호를 다시 입력해주세요" required>
-                    {% if form.password2.errors %}
-                    <p class="text-danger">{{ form.password2.errors.0 }}</p>
-                    {% endif %}
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">가입하기</button>
+                <!-- 가입하기 버튼 -->
+                <button type="submit" id="submit_button" class="btn btn-primary btn-block" disabled>가입하기</button>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+// CSRF 토큰을 JavaScript 변수로 설정
+var csrfToken = '{{ csrf_token }}';
+
+document.getElementById("verify_button").onclick = function() {
+    var code = document.getElementById("id_verification_code").value;
+    var resultElement = document.getElementById("verification_result");
+
+    var formData = new URLSearchParams();
+    formData.append('code', code);
+
+    fetch("{% url 'verify_email' %}", {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken,  // CSRF 토큰 사용
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            resultElement.innerHTML = "인증 성공!";
+            document.getElementById("submit_button").disabled = false; // '가입하기' 버튼 활성화
+        } else {
+            resultElement.innerHTML = data.error;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+};
+
+document.getElementById("send_email_button").onclick = function() {
+    var email = document.getElementById("id_email").value;
+
+    var formData = new URLSearchParams();
+    formData.append('email', email);
+
+    fetch("{% url 'send_verification_email' %}", {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken,  // CSRF 토큰 사용
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("이메일로 인증 코드가 전송되었습니다.");
+        } else {
+            alert("이메일 전송에 실패했습니다.");
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+};
+</script>
 
 {% endblock %}
