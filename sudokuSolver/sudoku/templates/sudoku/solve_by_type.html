@@ -2,137 +2,76 @@
 
 {% block contents %}
 
-    <style>
-        input {
-            border: 5px;
-            resize: none;
-            width: 75px;
-            height: 75px;
-            font-size: 25px;
-            text-align: center;
-            outline-style: solid;
-        }
-    </style>
+<style>
+    input {
+        border: 5px;
+        resize: none;
+        width: 75px;
+        height: 75px;
+        font-size: 25px;
+        text-align: center;
+        outline-style: solid;
+    }
+</style>
 
-    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-      <div class="col-md-5 p-lg-5 mx-auto my-5">
-        <h1 class="display-4 font-weight-normal">숫자를 입력하세요!</h1>
-        <p class="lead font-weight-normal">정확히 입력해야 답을 내요.</p>
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+  <div class="col-md-5 p-lg-5 mx-auto my-5">
+    <h1 class="display-4 font-weight-normal">숫자를 입력하세요!</h1>
+    <p class="lead font-weight-normal">정확히 입력해야 답을 내요.</p>
+  </div>
+  <div>
+    <form method="post" enctype="multipart/form-data" action="" >
 
-      </div>
-      <div>
-        <form method="post" enctype="multipart/form-data" action="" >
+    {% csrf_token %}
+    <table style="outline-style: solid; margin: auto; text-align: center; margin-bottom: 30px;">
+        {% for i in "123456789" %}
+        <tr>
+            {% for j in "123456789" %}
+            <td><input type="text" name="n{{i}}{{j}}"></td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <input class="btn btn-primary" type="submit" style="width: 10%;">
+</form>
+  </div>
+</div>
 
-        {% csrf_token %}
-        <table style="outline-style: solid; margin: auto; text-align: center; margin-bottom: 30px;">
-            <tr>
-                <td><input name="n11">
-                <td><input name="n12">
-                <td><input name="n13">
-                <td><input name="n14">
-                <td><input name="n15">
-                <td><input name="n16">
-                <td><input name="n17">
-                <td><input name="n18">
-                <td><input name="n19">
-            </tr>
-            <tr>
-                <td><input name="n21">
-                <td><input name="n22">
-                <td><input name="n23">
-                <td><input name="n24">
-                <td><input name="n25">
-                <td><input name="n26">
-                <td><input name="n27">
-                <td><input name="n28">
-                <td><input name="n29">
-            </tr>
-            <tr>
-                <td><input name="n31">
-                <td><input name="n32">
-                <td><input name="n33">
-                <td><input name="n34">
-                <td><input name="n35">
-                <td><input name="n36">
-                <td><input name="n37">
-                <td><input name="n38">
-                <td><input name="n39">
-            </tr>
-            <tr>
-                <td><input name="n41">
-                <td><input name="n42">
-                <td><input name="n43">
-                <td><input name="n44">
-                <td><input name="n45">
-                <td><input name="n46">
-                <td><input name="n47">
-                <td><input name="n48">
-                <td><input name="n49">
-            </tr>
-            <tr>
-                <td><input name="n51">
-                <td><input name="n52">
-                <td><input name="n53">
-                <td><input name="n54">
-                <td><input name="n55">
-                <td><input name="n56">
-                <td><input name="n57">
-                <td><input name="n58">
-                <td><input name="n59">
-            </tr>
-            <tr>
-                <td><input name="n61">
-                <td><input name="n62">
-                <td><input name="n63">
-                <td><input name="n64">
-                <td><input name="n65">
-                <td><input name="n66">
-                <td><input name="n67">
-                <td><input name="n68">
-                <td><input name="n69">
-            </tr>
-            <tr>
-                <td><input name="n71">
-                <td><input name="n72">
-                <td><input name="n73">
-                <td><input name="n74">
-                <td><input name="n75">
-                <td><input name="n76">
-                <td><input name="n77">
-                <td><input name="n78">
-                <td><input name="n79">
-            </tr>
-            <tr>
-                <td><input name="n81">
-                <td><input name="n82">
-                <td><input name="n83">
-                <td><input name="n84">
-                <td><input name="n85">
-                <td><input name="n86">
-                <td><input name="n87">
-                <td><input name="n88">
-                <td><input name="n89">
-            </tr>
-            <tr>
-                <td><input name="n91">
-                <td><input name="n92">
-                <td><input name="n93">
-                <td><input name="n94">
-                <td><input name="n95">
-                <td><input name="n96">
-                <td><input name="n97">
-                <td><input name="n98">
-                <td><input name="n99">
-            </tr>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const inputs = document.querySelectorAll('input[type="text"]');
 
+    function getNextInputName(currentName, increment) {
+        let currentNumber = parseInt(currentName.replace(/^\D+/g, ''));
+        let nextNumber = currentNumber + increment;
+        return `n${nextNumber.toString().padStart(2, '0')}`;
+    }
 
-
-        </table>
-        <input class="btn btn-primary" type="submit" style="width: 10%;">
-    </form>
-      </div>
-      <div class="product-device shadow-sm d-none d-md-block"></div>
-      <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
-    </div>
+    inputs.forEach(input => {
+        input.addEventListener('keyup', function(e) {
+            if ((e.key >= '0' && e.key <= '9') || e.key === 'Backspace') {
+                let nextInputName;
+                if (e.key !== 'Backspace') {
+                    nextInputName = getNextInputName(this.name, 1);
+                } else {
+                    nextInputName = getNextInputName(this.name, -1);
+                }
+                let nextInput = document.querySelector(`input[name=${nextInputName}]`);
+                if (nextInput) {
+                    nextInput.focus();
+                }
+            } else if (e.key === 'ArrowRight') {
+                let nextInputName = getNextInputName(this.name, 1);
+                let nextInput = document.querySelector(`input[name=${nextInputName}]`);
+                if (nextInput) nextInput.focus();
+            } else if (e.key === 'ArrowLeft') {
+                let prevInputName = getNextInputName(this.name, -1);
+                let prevInput = document.querySelector(`input[name=${prevInputName}]`);
+                if (prevInput) prevInput.focus();
+            }
+        });
+    });
+});
+</script>
 
 {% endblock %}

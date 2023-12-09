@@ -1,147 +1,23 @@
+<!-- sudoku/solved_by_type.html -->
+
 {% extends 'sudoku/base.html' %}
 
 {% block contents %}
 
-    <style>
-        input, td {
-            border: 1px;
-            resize: none;
-            width: 75px;
-            height: 75px;
-            font-size: 25px;
-            text-align: center;
-            outline-style: solid;
-        }
-    </style>
-
-    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-      <div class="col-md-5 p-lg-5 mx-auto my-5">
-        <h1 class="display-4 font-weight-normal">쨘!<br> </h1>
-      </div>
-      <div>
-<!--        <form method="post" enctype="multipart/form-data" action="" >-->
-
-        {% csrf_token %}
-        <table style="outline-style: solid; border: 1px; margin: auto; text-align: center; margin-bottom: 30px;">
-            <tr>
-                <td>{{ n11 }}
-                <td>{{ n12 }}
-                <td>{{ n13 }}
-                <td>{{ n14 }}
-                <td>{{ n15 }}
-                <td>{{ n16 }}
-                <td>{{ n17 }}
-                <td>{{ n18 }}
-                <td>{{ n19 }}
-            </tr>
-            <tr>
-                <td>{{ n21 }}
-                <td>{{ n22 }}
-                <td>{{ n23 }}
-                <td>{{ n24 }}
-                <td>{{ n25 }}
-                <td>{{ n26 }}
-                <td>{{ n27 }}
-                <td>{{ n28 }}
-                <td>{{ n29 }}
-            </tr>
-            <tr>
-                <td>{{ n31 }}
-                <td>{{ n32 }}
-                <td>{{ n33 }}
-                <td>{{ n34 }}
-                <td>{{ n35 }}
-                <td>{{ n36 }}
-                <td>{{ n37 }}
-                <td>{{ n38 }}
-                <td>{{ n39 }}
-            </tr>
-            <tr>
-                <td>{{ n41 }}
-                <td>{{ n42 }}
-                <td>{{ n43 }}
-                <td>{{ n44 }}
-                <td>{{ n45 }}
-                <td>{{ n46 }}
-                <td>{{ n47 }}
-                <td>{{ n48 }}
-                <td>{{ n49 }}
-            </tr>
-            <tr>
-                <td>{{ n51 }}
-                <td>{{ n52 }}
-                <td>{{ n53 }}
-                <td>{{ n54 }}
-                <td>{{ n55 }}
-                <td>{{ n56 }}
-                <td>{{ n57 }}
-                <td>{{ n58 }}
-                <td>{{ n59 }}
-            </tr>
-            <tr>
-                <td>{{ n61 }}
-                <td>{{ n62 }}
-                <td>{{ n63 }}
-                <td>{{ n64 }}
-                <td>{{ n65 }}
-                <td>{{ n66 }}
-                <td>{{ n67 }}
-                <td>{{ n68 }}
-                <td>{{ n69 }}
-            </tr>
-            <tr>
-                <td>{{ n71 }}
-                <td>{{ n72 }}
-                <td>{{ n73 }}
-                <td>{{ n74 }}
-                <td>{{ n75 }}
-                <td>{{ n76 }}
-                <td>{{ n77 }}
-                <td>{{ n78 }}
-                <td>{{ n79 }}
-            </tr>
-            <tr>
-                <td>{{ n81 }}
-                <td>{{ n82 }}
-                <td>{{ n83 }}
-                <td>{{ n84 }}
-                <td>{{ n85 }}
-                <td>{{ n86 }}
-                <td>{{ n87 }}
-                <td>{{ n88 }}
-                <td>{{ n89 }}
-            </tr>
-            <tr>
-                <td>{{ n91 }}
-                <td>{{ n92 }}
-                <td>{{ n93 }}
-                <td>{{ n94 }}
-                <td>{{ n95 }}
-                <td>{{ n96 }}
-                <td>{{ n97 }}
-                <td>{{ n98 }}
-                <td>{{ n99 }}
-            </tr>
-        </table>
-
-<!--    </form>-->
-      <div>
-          <a href="/" class="btn btn-primary" type="submit" style="width: 10%;">돌아가기</a>
-      </div>
-
-      </div>
-      <div class="product-device shadow-sm d-none d-md-block"></div>
-      <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+    <div class="col-md-5 p-lg-5 mx-auto my-5">
+        <h1 class="display-4 font-weight-normal">스도쿠 결과</h1>
     </div>
+    {% if img.sudoku_image %}
+        <img src="{{ img.sudoku_image.url }}" alt="스도쿠 이미지" style="width: 480px; height: 480px; margin-bottom: 30px"/>
+    {% endif %}
+    {% if img.sudoku_image_result %}
+        <img src="{{ img.sudoku_image_result.url }}" alt="스도쿠 결과 이미지" style="width: 480px; height: 480px; margin-bottom: 30px"/>
+    {% endif %}
+
+    <div>
+        <a href="/" class="btn btn-primary" style="width: 10%;">돌아가기</a>
+    </div>
+</div>
 
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
