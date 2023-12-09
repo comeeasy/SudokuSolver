@@ -48,6 +48,7 @@ class LoginForm(AuthenticationForm):
 
 
 def login_view(request):
+    context = {}
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
         if form.is_valid():
@@ -59,10 +60,14 @@ def login_view(request):
                 return redirect('home')
             else:
                 # 인증 실패 시
-                return render(request, 'frontpage/login.html', {'form': form, 'error': '로그인 정보가 잘못되었습니다.'})
+                context['error'] = '로그인 정보가 잘못되었습니다.'
+                context['form'] = form
+                return render(request, 'frontpage/login.html', context)
     else:
         form = LoginForm()
-    return render(request, 'frontpage/login.html', {'form': form})
+        context['form'] = form
+    return render(request, 'frontpage/login.html', context)
+
 
 
 class EmailAuthBackend(ModelBackend):
