@@ -1,72 +1,38 @@
 {% extends 'sudoku/base.html' %}
 
 {% block contents %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Sudoku Images and Results</h2>
 
-<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="alignment: center;">
-    <div class="col-md-5 p-lg-5 mx-auto my-5">
-        <h1 class="display-4 font-weight-normal">스도쿠 사진을 업로드 하세요!</h1>
-        <p class="lead font-weight-normal" id="loading">사진 한 방에 끝.</p>
-    </div>
-
-    <div class="flex-md-equal w-100 my-md-3 pl-md-3" style="text-align: center">
-
-      <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white" style="alignment: center;">
+    <div class="row">
         {% for img in image_list %}
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        Image and Result #{{ forloop.counter }}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Original Image</h5>
+                        {% if img.sudoku_image %}
+                            <img src="{{ img.sudoku_image.url }}" class="card-img-top mb-3" alt="Sudoku Image {{ forloop.counter }}">
+                        {% else %}
+                            <div class="text-center text-muted d-flex align-items-center justify-content-center" style="height: 320px;">
+                                이미지를 가져오지 못했어요 ㅠㅜ
+                            </div>
+                        {% endif %}
 
-        <div class="my-3 py-3" style="alignment: center">
-          <h2 class="display-5">Results</h2>
-          <img src="{{ img.sudoku_image.url }}" alt="your image" style="width: 320px; height: 480px; margin-bottom: 30px">
-          {% if img.sudoku_image_result %}
-            <img src="{{ img.sudoku_image_result.url }}" alt="your image" style="width: 320px; height: 480px; margin-bottom: 30px">
-          {% endif %}
-        </div>
-        <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+                        <h5 class="card-title">Solved Result</h5>
+                        {% if img.sudoku_image_result %}
+                            <img src="{{ img.sudoku_image_result.url }}" class="card-img-top" alt="Sudoku Result {{ forloop.counter }}">
+                        {% else %}
+                            <div class="text-center text-muted d-flex align-items-center justify-content-center" style="height: 400px;">
+                                이미지를 가져오지 못했어요 ㅠㅜ
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         {% endfor %}
-      </div>
-
     </div>
 </div>
-
-</div>
-    <div class="product-device shadow-sm d-none d-md-block"></div>
-    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
-</div>
-
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>SolveSudoku</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--    <h1>posts of results</h1>-->
-
-<!--    {% for img in image_list %}-->
-<!--    <div>-->
-<!--        <img src="{{ img.sudoku_image.url }}" alt="maong" style="width: 320px; height: 480px;">&nbsp;&nbsp;-->
-<!--        {% if img.sudoku_image_result %}-->
-<!--            <img src="{{ img.sudoku_image_result.url }}" alt="miaong" style="width: 320px; height: 480px;">-->
-<!--        {% endif %}-->
-<!--    </div>-->
-<!--    {% endfor %}-->
-
-
-
-<!--    <div>-->
-<!--        <a href="http://127.0.0.1:8000"><input type="button" value="Home"></a>-->
-<!--    </div>-->
-
-<!--</body>-->
-<!--</html>-->
