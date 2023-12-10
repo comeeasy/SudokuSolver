@@ -20,7 +20,7 @@
     <p class="lead font-weight-normal">정확히 입력해야 답을 내요.</p>
   </div>
   <div>
-    <form method="post" enctype="multipart/form-data" action="" >
+    <form id="sudokuForm" method="post" enctype="multipart/form-data" action="" >
 
     {% csrf_token %}
     <table style="outline-style: solid; margin: auto; text-align: center; margin-bottom: 30px;">
@@ -33,12 +33,13 @@
         {% endfor %}
     </table>
     <input class="btn btn-primary" type="submit" style="width: 10%;">
-</form>
+    </form>
   </div>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('sudokuForm');
     const inputs = document.querySelectorAll('input[type="text"]');
 
     function getNextInputName(currentName, increment) {
@@ -49,13 +50,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     inputs.forEach(input => {
         input.addEventListener('keyup', function(e) {
-            if ((e.key >= '0' && e.key <= '9') || e.key === 'Backspace') {
-                let nextInputName;
-                if (e.key !== 'Backspace') {
-                    nextInputName = getNextInputName(this.name, 1);
-                } else {
-                    nextInputName = getNextInputName(this.name, -1);
-                }
+            if ((e.key >= '0' && e.key <= '9') && this.value.length === 1) {
+                let nextInputName = getNextInputName(this.name, 1);
                 let nextInput = document.querySelector(`input[name=${nextInputName}]`);
                 if (nextInput) {
                     nextInput.focus();
@@ -68,6 +64,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 let prevInputName = getNextInputName(this.name, -1);
                 let prevInput = document.querySelector(`input[name=${prevInputName}]`);
                 if (prevInput) prevInput.focus();
+            }
+        });
+    });
+
+    form.addEventListener('submit', function(e) {
+        inputs.forEach(input => {
+            if (input.value === '') {
+                input.value = '0';
             }
         });
     });
